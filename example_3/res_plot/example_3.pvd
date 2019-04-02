@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<VTKFile type="Collection" version="0.1" byte_order="LittleEndian" compressor="vtkZLibDataCompressor">
+<Collection>
+	<DataSet group="" part="" timestep="1875.000000" file="example_3_000001.vtu"/>
+	<DataSet group="" part="" timestep="3750.000000" file="example_3_000002.vtu"/>
+	<DataSet group="" part="" timestep="5625.000000" file="example_3_000003.vtu"/>
+	<DataSet group="" part="" timestep="7500.000000" file="example_3_000004.vtu"/>
+	<DataSet group="" part="" timestep="9375.000000" file="example_3_000005.vtu"/>
+	<DataSet group="" part="" timestep="11250.000000" file="example_3_000006.vtu"/>
+	<DataSet group="" part="" timestep="13125.000000" file="example_3_000007.vtu"/>
+	<DataSet group="" part="" timestep="15000.000000" file="example_3_000008.vtu"/>
+	<DataSet group="" part="" timestep="16875.000000" file="example_3_000009.vtu"/>
+	<DataSet group="" part="" timestep="18750.000000" file="example_3_000010.vtu"/>
+	<DataSet group="" part="" timestep="20625.000000" file="example_3_000011.vtu"/>
+	<DataSet group="" part="" timestep="22500.000000" file="example_3_000012.vtu"/>
+	<DataSet group="" part="" timestep="24375.000000" file="example_3_000013.vtu"/>
+	<DataSet group="" part="" timestep="26250.000000" file="example_3_000014.vtu"/>
+	<DataSet group="" part="" timestep="28125.000000" file="example_3_000015.vtu"/>
+	<DataSet group="" part="" timestep="30000.000000" file="example_3_000016.vtu"/>
+	<DataSet group="" part="" timestep="31875.000000" file="example_3_000017.vtu"/>
+	<DataSet group="" part="" timestep="33750.000000" file="example_3_000018.vtu"/>
+	<DataSet group="" part="" timestep="35625.000000" file="example_3_000019.vtu"/>
+	<DataSet group="" part="" timestep="37500.000000" file="example_3_000020.vtu"/>
+</Collection>
+</VTKFile>
