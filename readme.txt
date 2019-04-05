@@ -6,10 +6,22 @@ modeled by contact mechanics
 by
 Runar L. Berge, Barbara Wohlmuth, Eirik Keilegavlen, Inga Berre, and Jan M. Nordbotten
 
-To run the examples contained in this repository a working version of porepy (which can
+To run the examples contained in this repository a working version of PorePy (which can
 be downloaded from https://github.com/pmgbergen/porepy) must be installed on the computer.
 The code within this repository was develop for the porepy version given by the commit:
 bcdc83b01c295cfb6b1189e7934308df83f83a74
+
+The PorePy install requires installations of further packages, see Install instructions
+in the PorePy repository.
+
+Moreover, the simulations use the PyAMG package to solve the linear system resulting 
+from the contact mechanics problem. Install by 
+
+	pip install pyamg
+
+or 
+
+	conda install pyamg
 
 This repository contains the following files:
 contact.py    Calculate the Robin boundary condition resulting from the Newton scheme
@@ -19,11 +31,12 @@ solvers.py    Linear solvers for the elastic/biot system with contact
 utils.py      Various utility functions
 viz.py        Module for vizualization
 
-In addition there are three subfolders, example_1, example_2 and example_3 with the same
-structure:
-example_*/
-    setup.py    Setup of example * in the paper listed above
-    main.py     Run this script to run example *
+The examples are found in files 
+	main_1.py, 
+	main_2.py 
+	main_3.py 
 
-Note that the meshsizes set in main.py is larger than the ones used in the paper to reduce
+corresponding to the examples in the paper. The setups are the correspondingly named setup_*.py.
+
+Note that the meshsizes set in main_*.py are larger than the ones used in the paper to reduce
 the run times.
