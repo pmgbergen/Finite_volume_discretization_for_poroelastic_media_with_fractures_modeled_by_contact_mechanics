@@ -7,10 +7,10 @@ import pickle
 import porepy as pp
 
 import discretizations
-import example_2.setup as setup2
+import setup_2 
 
 
-class Example3Setup(setup2.Example2Setup):
+class Example3Setup(setup_2.Example2Setup):
     def __init__(self, mesh_args, out_name):
         super().__init__(mesh_args, out_name)
         self.mesh_args = mesh_args
