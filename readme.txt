@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2634738.svg)](https://doi.org/10.5281/zenodo.2634738)
+
 This repository contains the run-scripts for the paper:
 
 Finite volume discretization for poroelastic media with fractures
