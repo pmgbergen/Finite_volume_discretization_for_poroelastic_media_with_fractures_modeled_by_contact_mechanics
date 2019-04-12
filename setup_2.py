@@ -31,14 +31,14 @@ class Example2Setup():
                                   np.pi/6.3,
                                   np.pi/2.2,
                                   np.pi/4.1,
-                                  num_points=8)
+                                  num_points=10)
         f_2 = pp.EllipticFracture(np.array([1.5, 0.6, 0.8]),
                                   1.5,
                                   1.5,
                                   0,
                                   np.pi/2.3,
                                   -np.pi/4.2,
-                                  num_points=8)
+                                  num_points=10)
 
         # Define a 3d FractureNetwork
         self.fractures = [f_1, f_2]
