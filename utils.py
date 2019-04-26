@@ -245,7 +245,7 @@ def construct_nodal_values(g, mg, data_node, u, p, Tc, key, key_m):
     bc = data_node[pp.PARAMETERS][key]['bc']
     u_bc = data_node[pp.PARAMETERS][key]['bc_values']
     eta_vec = data_node[pp.PARAMETERS][key]['mpsa_eta']
-    eta_node = 0 *np.ones(s_t.num_subfno_unique)
+    eta_node = 1 * np.ones(s_t.num_subfno_unique)
     _, _, disp_cell, disp_bound = pp.numerics.fv.mpsa.mpsa(
         g, k, bc, hf_eta=eta_node, eta=eta_vec
         )
