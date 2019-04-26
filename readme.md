@@ -1,4 +1,4 @@
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2634738.svg)](https://doi.org/10.5281/zenodo.2634738)
+[![DOI](https://zenodo.org/badge/179075991.svg)](https://zenodo.org/badge/latestdoi/179075991)
 
 This repository contains the run-scripts for the paper:
 
