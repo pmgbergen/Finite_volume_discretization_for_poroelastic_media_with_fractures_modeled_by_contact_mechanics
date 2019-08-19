@@ -1,14 +1,18 @@
 """
 Main run script for running example 3.
 """
-import setup_3
-import models
+import setup
+import commons
+import setup
 
-mesh_args = {'mesh_size_frac': 0.5, 'mesh_size_min': 0.1 * 0.1, 'mesh_size_bound': 0.8}
-# Mesh size in paper: 
-# mesh_args = {'mesh_size_frac': 0.2, 'mesh_size_min': 0.001}
+run_name = 'example_4_0.005'
+# Mesh size in paper:
+# size = 0.005
+size = 0.5
+mesh_args = {'mesh_size_frac': size,
+             'mesh_size_bound': 2 * size,
+             'mesh_size_min': 0.1 * size}
 
-run_name = 'example_3'
-setup = setup_3.Example3Setup(mesh_args, run_name)
+setup_biot = setup.Example3Setup(mesh_args, run_name)
 
-models.run_biot(setup)
+commons.run_biot(setup_biot)

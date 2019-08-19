@@ -1,29 +1,27 @@
 """
-This is a setup class for solving linear elasticity with contact between the fractures.
-
-The domain $[0, 2]\times[0, 1]$ with six fractures. We do not consider any fluid, and
-solve only for the linear elasticity coupled to the contact
+This is a setup class for solving Biot with contact between the fractures.
 """
 import numpy as np
 import scipy.sparse as sps
-from scipy.spatial.distance import cdist
+import pickle
 import porepy as pp
-import copy
 
 import discretizations
-import setup_1 as setup1
+import setup_2 
 
-class Example3Setup(setup1.Example1Setup):
+
+class Example3Setup(setup_2.Example2Setup):
     def __init__(self, mesh_args, out_name):
         super().__init__(mesh_args, out_name)
         self.mesh_args = mesh_args
         self.out_name = out_name
         self.store = True
-        self.end_time =  1
         self.S = 1e-10 * 1 / pp.PASCAL
         self.k = 1e-11 * pp.METER**2
         self.viscosity = 1 * pp.MILLI * pp.PASCAL * pp.SECOND
-        self.end_time =  5 * self.viscosity * self.S * pp.METER / self.k
+        H = (self.domain['xmax'] - self.domain['xmin']) * self.length_scale
+        self.end_time =  15 * self.viscosity * self.S * H**2 / self.k
+
 
     def set_parameters(self, g, data_node, mg, data_edge):
         """
@@ -37,23 +35,22 @@ class Example3Setup(setup1.Example1Setup):
             raise ValueError('Mechanics keyword must equal contact keyword')
         self.key_m = key_m
         self.key_f = key_f
-
         # Set fluid parameters
-        kxx = self.k * np.ones(g.num_cells)
+        kxx = self.k * np.ones(g.num_cells) / self.length_scale**2
         viscosity = self.viscosity / self.pressure_scale
         K = pp.SecondOrderTensor(g.dim, kxx / viscosity)
 
         # Define Biot parameters
         alpha = 1
         dt = self.end_time / 20
-
         # Define the finite volume sub grid
         s_t = pp.fvutils.SubcellTopology(g)
 
         # Define boundary conditions for flow
+        top = g.face_centers[2] > np.max(g.nodes[2]) - 1e-9
+        bot = g.face_centers[2] < np.min(g.nodes[2]) + 1e-9
         east = g.face_centers[0] > np.max(g.nodes[0]) - 1e-9
-        west = g.face_centers[0] < np.min(g.nodes[0]) + 1e-9
-        bc_flow = pp.BoundaryCondition(g, west, 'dir')
+        bc_flow = pp.BoundaryCondition(g, top, 'dir')
         bc_flow = pp.fvutils.boundary_to_sub_boundary(bc_flow, s_t)    
 
         # Set boundary condition values.
@@ -152,40 +149,28 @@ class Example3Setup(setup1.Example1Setup):
         pp.Biot(key_m, key_f).discretize(g, data_node)
         return key_m, key_f
 
-
-    def initial_condition(self, g, mg, nc):
-        """
-        Initial guess for Newton iteration.
-        """
-        # Initial guess: no sliding
-        u0 = np.zeros((g.dim, g.num_cells))
-        Tc = -100*nc
-        uc = np.zeros((g.dim, mg.num_cells))
-        return u0, uc, Tc
-
     def bc_values(self, g, t, key):
         # Define the finite volume sub grid
         s_t = pp.fvutils.SubcellTopology(g)
         # Define boundary conditions for flow
-        top = g.face_centers[g.dim - 1] > np.max(g.nodes[g.dim - 1]) - 1e-9
+        top = g.face_centers[2] > np.max(g.nodes[2]) - 1e-9
+        bot = g.face_centers[2] < np.min(g.nodes[2]) + 1e-9
+        east = g.face_centers[0] > np.max(g.nodes[0]) - 1e-9
 
         if key==self.key_m:
             # Set boundary condition values. Remember stress is scaled with giga
+            A = g.face_areas[s_t.fno_unique][top[s_t.fno_unique]] / 3
             u_bc = np.zeros((g.dim, s_t.num_subfno_unique))
-            if t < self.end_time / 2:
-                x = 0.005 * t / (self.end_time / 2)
-                y = -0.002 * t / (self.end_time / 2)
-            else:
-                x = 0.005
-                y = -0.002
-
-            u_bc[0, top[s_t.fno_unique]] = x
-            u_bc[1, top[s_t.fno_unique]] = y
+            if t < 1e-12:
+                return u_bc.ravel('F')
+            u_bc[2, top[s_t.fno_unique]] = (
+                -4.5 * pp.MEGA * pp.PASCAL / self.pressure_scale * A
+                )
             return u_bc.ravel('F')
-
         elif key==self.key_f:
             # Set boundary condition values. Remember stress is scaled with giga
             p_bc = np.zeros(s_t.num_subfno_unique)
+            p_bc[top[s_t.fno_unique]] = 0 * pp.MEGA * pp.PASCAL / self.pressure_scale
             return p_bc
         else:
             raise ValueError('Unknown keyword: ' +  key)
