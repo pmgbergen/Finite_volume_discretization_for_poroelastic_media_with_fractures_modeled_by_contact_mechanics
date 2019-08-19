@@ -27,14 +27,16 @@ or
 
 This repository contains the following files:
 contact.py:	Calculate the Robin boundary condition resulting from the Newton scheme  
-main_1.py:   	Run script Example 1 in paper  
-main_2.py:     	Run script Example 2 in paper  
-main_3.py:     	Run script Example 3 in paper  
+main_1.py:   	Run script Example 1 in paper
+main_2.py:     	Run script Example 2 in paper
+main_3.py:     	Run script Example 3 in paper
+main_4.py:     	Run script Example 4 in paper
 models.py:     	Solve the elastic/biot equations with contact using Newton  
 my_meshing.py: 	Create a mesh with mortars on the fractures   
 setup_1.py:    	Setup file for example 1  
 setup_2.py:    	Setup file for example 2  
-setup_3.py:    	Setup file for example 3  
+setup_3.py:    	Setup file for example 3
+setup_4.py:    	Setup file for example 4
 solvers.py:    	Linear solvers for the elastic/biot system with contact  
 utils.py:      	Various utility functions  
 viz.py:        	Module for vizualization  
