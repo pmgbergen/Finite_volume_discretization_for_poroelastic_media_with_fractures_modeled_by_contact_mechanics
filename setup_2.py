@@ -17,7 +17,6 @@ class Example2Setup():
         self.pressure_scale = pp.GIGA
         self.length_scale = 100 * pp.METER
         self.domain = {'xmin': -2, 'xmax': 3, 'ymin': -2, 'ymax': 3, 'zmin': -3, 'zmax': 3}
-
     def create_grid(self):
         """
         Method that creates and returns the GridBucket of a 3D domain with two
@@ -31,14 +30,14 @@ class Example2Setup():
                                   np.pi/6.3,
                                   np.pi/2.2,
                                   np.pi/4.1,
-                                  num_points=10)
+                                  num_points=8)
         f_2 = pp.EllipticFracture(np.array([1.5, 0.6, 0.8]),
                                   1.5,
                                   1.5,
                                   0,
                                   np.pi/2.3,
                                   -np.pi/4.2,
-                                  num_points=10)
+                                  num_points=8)
 
         # Define a 3d FractureNetwork
         self.fractures = [f_1, f_2]
@@ -92,14 +91,14 @@ class Example2Setup():
         bc.is_dir[0, west] = True      # Rolling
         bc.is_dir[1, north] = True     # Rolling
         bc.is_dir[1, south] = True     # Rolling
-        bc.is_dir[:, bot] = True       # Dirichlet
+        bc.is_dir[:, bot] = True # Dirichlet
         bc.is_neu[bc.is_dir + bc.is_rob] = False
 
         # extract boundary condition to subcells
         bc = pp.fvutils.boundary_to_sub_boundary(bc, s_t)
 
         # Give boundary condition values
-        A = g.face_areas[s_t.fno_unique][top_hf] / 3
+        A = g.face_areas[s_t.fno_unique][top_hf] / 3 #* pp.length_scale**g.dim
         u_bc = np.zeros((g.dim, s_t.num_subfno_unique))
         u_bc[2, top_hf] =  -4.5 * pp.MEGA * pp.PASCAL / self.pressure_scale * A
 

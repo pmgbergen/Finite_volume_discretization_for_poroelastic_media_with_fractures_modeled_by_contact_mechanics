@@ -1,8 +1,8 @@
 """
-This is a setup class for solving linear elasticity with contact between the fractures.
+This is a setup class for solving linear porelasticity elasticity with contact
+between the fractures.
 
-The domain $[0, 2]\times[0, 1]$ with six fractures. We do not consider any fluid, and
-solve only for the linear elasticity coupled to the contact
+The domain $[0, 2]\times[0, 1]$ with six fractures.
 """
 import numpy as np
 import scipy.sparse as sps
@@ -11,9 +11,9 @@ import porepy as pp
 import copy
 
 import discretizations
-import setup_1 as setup1
+import setup_1
 
-class Example3Setup(setup1.Example1Setup):
+class Example3Setup(setup_1.Example1Setup):
     def __init__(self, mesh_args, out_name):
         super().__init__(mesh_args, out_name)
         self.mesh_args = mesh_args

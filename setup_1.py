@@ -17,6 +17,7 @@ class Example1Setup():
     def __init__(self, mesh_args, out_name):
         self.mesh_args = mesh_args
         self.out_name = out_name
+        self.pressure_scale = pp.GIGA
 
     def create_grid(self):
         """
@@ -64,8 +65,8 @@ class Example1Setup():
 
         # Rock parameters
         rock = pp.Granite()
-        lam =  rock.LAMBDA * np.ones(g.num_cells) / pp.GIGA
-        mu =  rock.MU * np.ones(g.num_cells) / pp.GIGA
+        lam =  rock.LAMBDA * np.ones(g.num_cells) / self.pressure_scale
+        mu =  rock.MU * np.ones(g.num_cells) / self.pressure_scale
         F = self._friction_coefficient(g, mg, data_edge, s_t)
 
         k = pp.FourthOrderTensor(g.dim, mu, lam)
@@ -106,6 +107,7 @@ class Example1Setup():
              'fourth_order_tensor': k,
              'mpsa_eta': eta_vec,
              'cont_pnt': cont_pnt,
+             'rock': rock,
         }
         )
 

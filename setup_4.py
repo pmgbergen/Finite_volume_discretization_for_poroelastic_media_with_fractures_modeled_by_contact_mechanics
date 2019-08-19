@@ -7,7 +7,7 @@ import pickle
 import porepy as pp
 
 import discretizations
-import setup_2 
+import setup_2
 
 
 class Example3Setup(setup_2.Example2Setup):
