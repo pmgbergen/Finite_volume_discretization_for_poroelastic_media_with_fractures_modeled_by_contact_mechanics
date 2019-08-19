@@ -281,8 +281,8 @@ def run_biot(setup):
         u_contact.append(uc)
 
         mech_bc = data_node[pp.PARAMETERS][key_m]['bc_values'].copy()
-        data_node[pp.PARAMETERS][key_m]['bc_values'] = setup.bc_values(g, t, key_m)
-        data_node[pp.PARAMETERS][key_f]['bc_values'] = setup.bc_values(g, t, key_f)
+        data_node[pp.PARAMETERS][key_m]['bc_values'] = setup.bc_values(g, t + dt, key_m)
+        data_node[pp.PARAMETERS][key_f]['bc_values'] = setup.bc_values(g, t + dt, key_f)
 
         data_node[pp.PARAMETERS][key_m]["state"]["displacement"] = u.ravel('F').copy()
         data_node[pp.PARAMETERS][key_m]["state"]["bc_values"] = mech_bc
